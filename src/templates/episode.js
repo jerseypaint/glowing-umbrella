@@ -39,21 +39,27 @@ const Button = styled.button`
     color: #fff;
   }
 `
+
 const PageNav = styled.div`
   display: flex;
   justify-content: space-between;
+
+  .svg-inline--fa {
+    margin: 0 8px;
+  }
 `
 
-const centerGrid = css`
-  justify-content: center;
+const prev = css`
+  margin-right: auto;
 `
+
+const next = css`
+  margin-left: auto;
+`
+
 const PageNavLink = css`
   display: flex;
   align-items: center;
-
-  svg {
-    margin: 0 8px;
-  }
 `
 
 const addLineBreaks = string =>
@@ -84,13 +90,16 @@ const Article = (props) => {
             </article>
         </Wrapper>
         <PageNav>
-            <Link to={`/`} css={PageNavLink}><FontAwesomeIcon icon={faAngleDoubleLeft} color={`black`} />Prev</Link>
-            <Link to={`/`} css={PageNavLink}>Next<FontAwesomeIcon icon={faAngleDoubleRight} color={`black`} /></Link>
+          {props.prev !== false && <Link to={props.prev} css={PageNavLink, prev}><FontAwesomeIcon icon={faAngleDoubleLeft} color={`black`} />Prev</Link>}
+          {props.next !== false && <Link to={props.next} css={PageNavLink, next}>Next<FontAwesomeIcon icon={faAngleDoubleRight} color={`black`} /></Link>}
         </PageNav>
     </Section>
 )}
 
-const EpisodesPage = ({data}) => (
+const EpisodesPage = ({data, pathContext}) => {
+  const { next, prev } = pathContext
+
+  return (
   <Layout>
     <SEO title={data.soundcloudtrack.title} />
     <NewEpisode
@@ -99,10 +108,12 @@ const EpisodesPage = ({data}) => (
     />
     <Article 
       body={data.soundcloudtrack.description}
+      prev={prev}
+      next={next}
     />
     <Newsletter />
   </Layout>
-)
+)}
 
 export default EpisodesPage
 

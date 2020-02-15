@@ -13,6 +13,7 @@ import SEO from "../components/seo"
 import Section from "../components/section"
 import ListenLinks from "../components/listen-links"
 import Newsletter from "../components/newsletter"
+import { Component } from "react"
 
 const Grid = styled.div`
   @media (min-width: 767px) {
@@ -141,7 +142,7 @@ const Button = styled.button`
   padding: .7em 1em;
   border: 1px solid #000;
   border-radius: 6px;
-  background-color: #fff;
+  background-color: transparent;
   color: #000;
   text-decoration: none;
   font-weight: 700;
@@ -149,6 +150,17 @@ const Button = styled.button`
   &:hover {
     background-color: #000;
     color: #fff;
+  }
+
+  &:disabled {
+    border:none;
+    color: #bebebe;
+
+    &:hover {
+      background-color: transparent;
+      border: none;
+      color: #bebebe;
+    }
   }
 `
 
@@ -201,15 +213,76 @@ const NewEpisode = (props) => {
   )
 }
 
-const AllEpisodes = (props) => {
-  function truncate(str) {
-    return str.length > 200 ? str.substring(0, 200) + "..." : str;
+class AllEpisodes extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+     chunksLoaded: 1,
+     isLoading: false,
+     allLoaded: false,
+    }
   }
 
+  renderEpisodes = () => {
+
+    let { chunksLoaded } = this.state
+    let epArray = this.props.tracks
+
+    function chunk(arr, chunkSize) {
+      var R = [];
+      for (var i=0,len=arr.length; i<len; i+=chunkSize)
+        R.push(arr.slice(i,i+chunkSize));
+      return R;
+    }
+
+    let chunks = chunk(epArray, 10)
+    let renderChunks = []
+
+    for (let i = 0; i < chunksLoaded; i++ ) {
+      renderChunks.push(chunks[i])
+    }
+
+    let flatRenderChunks = renderChunks.flat()
+    console.log(flatRenderChunks)
+  
+    function truncate(str) {
+      return str.length > 200 ? str.substring(0, 200) + "..." : str;
+    }
+
+    return flatRenderChunks.map( track => (
+      <Episode key={track.node.permalink}>
+          <TrackImage src={track.node.artwork_url} />
+          <EpisodeMeta>
+              <p>{track.node.created_at}</p>
+              <p>{track.node.duration}</p>
+          </EpisodeMeta>
+          <EpisodeDescription>
+              <h3><Link to={`/${track.node.permalink}`}>{track.node.title}</Link></h3>
+              <p>{truncate(track.node.description)}</p>
+          </EpisodeDescription>
+      </Episode>
+      )
+    )
+  }
+
+  loadMore = () => {
+    let { chunksLoaded } = this.state
+    let epArray = this.props.tracks
+    let allLoaded = (chunksLoaded + 1) * 10 >= epArray.length
+    console.log((chunksLoaded + 1) * 10)
+    console.log(epArray.length)
+    this.setState({ chunksLoaded: chunksLoaded + 1, allLoaded: allLoaded })
+  }
+  
+  render () {
+    let { allLoaded } = this.state
+
   return (
+
     <Section>
         <AllEpisodesHeader>
-          <h2>{props.title}</h2>
+          <h2>{this.props.title}</h2>
           <FormWrapper>
             <SearchForm>
               <input />
@@ -219,24 +292,16 @@ const AllEpisodes = (props) => {
         </AllEpisodesHeader>
         <AllEpisodesList>
 
-        {props.tracks.map( track => (
-            <Episode>
-                <TrackImage src={track.node.artwork_url} />
-                <EpisodeMeta>
-                    <p>{track.node.created_at}</p>
-                    <p>{track.node.duration}</p>
-                </EpisodeMeta>
-                <EpisodeDescription>
-                    <h3><Link to={track.node.permalink}>{track.node.title}</Link></h3>
-                    <p>{truncate(track.node.description)}</p>
-                </EpisodeDescription>
-            </Episode>
-            ))}
+        {this.renderEpisodes()}
 
-            <Button>Load More</Button>
+            <Button 
+              type={`button`} 
+              onClick={this.loadMore} 
+              disabled={allLoaded}
+                >{allLoaded ? 'No More Episodes' : 'Load More'}</Button>
         </AllEpisodesList>
     </Section>
-)}
+)}}
 
 const EpisodesPage = ({data}) => (
   <Layout>
