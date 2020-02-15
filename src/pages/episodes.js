@@ -118,6 +118,10 @@ const EpisodeMeta = styled.div`
   @media (min-width: 767px) {
     padding: 0 1em;
   }
+
+  p {
+    margin-bottom: 6px;
+  }
 `
 
 const EpisodeDescription = styled.div`
@@ -205,7 +209,7 @@ const NewEpisode = (props) => {
             <TrackImage src={props.image} />
             <NewEpisodeContent>
               <span></span>
-              <h3>{props.title}</h3>
+              <h3><Link to={props.link}>{props.title}</Link></h3>
               <p> {truncate(props.description)} ... <Link to={props.link}>Listen Now</Link></p>
             </NewEpisodeContent>
         </Grid>
@@ -239,20 +243,42 @@ class AllEpisodes extends Component {
 
     let flatRenderChunks = _.flatten(renderChunks)
 
-    function truncate(str) {
-      return str.length > 200 ? str.substring(0, 200) + "..." : str;
+    function truncate(str, num) {
+      return str.length > num ? str.substring(0, num) + "..." : str;
     }
+
+    function truncateDate(str, num) {
+      return str.length > num ? str.substring(0, num) : str;
+    }
+
+    function timeConversion(millisec) {
+
+      let hours = (millisec / (1000 * 60 * 60))
+      let absoluteHours = Math.floor(hours);
+      let h = absoluteHours > 9 ? absoluteHours : '0' + absoluteHours;
+
+      let minutes = (hours - absoluteHours) * 60
+      let absoluteMinutes = Math.floor(minutes);
+      let m = absoluteMinutes > 9 ? absoluteMinutes : '0' +  absoluteMinutes;
+
+      let seconds = (minutes - absoluteMinutes) * 60
+      let absoluteSeconds = Math.floor(seconds);
+      let s = absoluteSeconds > 9 ? absoluteSeconds : '0' + absoluteSeconds;
+
+      return h + `:` + m + `:` + s
+  }
+
 
     return flatRenderChunks.map( track => (
       <Episode key={track.node.permalink}>
           <TrackImage src={track.node.artwork_url} />
           <EpisodeMeta>
-              <p>{track.node.created_at}</p>
-              <p>{track.node.duration}</p>
+              <p>{truncateDate(track.node.created_at, 10)}</p>
+              <p>{timeConversion(track.node.duration)}</p>
           </EpisodeMeta>
           <EpisodeDescription>
               <h3><Link to={`/${track.node.permalink}`}>{track.node.title}</Link></h3>
-              <p>{truncate(track.node.description)}</p>
+              <p>{truncate(track.node.description, 200)}</p>
           </EpisodeDescription>
       </Episode>
       )
