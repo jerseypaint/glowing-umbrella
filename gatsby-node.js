@@ -19,8 +19,8 @@ exports.createPages = async function({ actions, graphql }) {
         }
     `)
     data.allSoundcloudtrack.edges.forEach((edge, index) => {
-    const prev = index === 0 ? false : data.allSoundcloudtrack.edges[index - 1].node.permalink
-    const next = index === data.allSoundcloudtrack.edges.length - 1 ? false : data.allSoundcloudtrack.edges[index + 1].node.permalink
+    const next = index === 0 ? false : data.allSoundcloudtrack.edges[index - 1].node.permalink
+    const prev = index === data.allSoundcloudtrack.edges.length - 1 ? false : data.allSoundcloudtrack.edges[index + 1].node.permalink
     const slug = edge.node.permalink
       actions.createPage({
         path: slug,
