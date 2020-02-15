@@ -13,6 +13,11 @@ import ListenLinks from "../components/listen-links"
 import Newsletter from "../components/newsletter"
 import Player from "../components/sc-player"
 
+const Break = styled.hr`
+  width: 600px;
+  background-color: #e5e5e5;
+  margin: 3em auto -3em;
+`
 
 const Wrapper = styled.div`
   max-width: 600px;
@@ -61,6 +66,7 @@ const NewEpisode = (props) => (
           <Player title={props.title} trackId={props.trackId} />
           <ListenLinks style={{justifyContent: `center`}} />
         </NewEpisodeContent>
+        <Break />
     </Section>
 )
 
