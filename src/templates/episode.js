@@ -14,7 +14,8 @@ import Newsletter from "../components/newsletter"
 import Player from "../components/sc-player"
 
 const Break = styled.hr`
-  width: 600px;
+  max-width: 600px;
+  width: 100%;
   background-color: #e5e5e5;
   margin: 3em auto -3em;
 `

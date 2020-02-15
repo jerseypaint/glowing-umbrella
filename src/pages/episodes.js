@@ -41,13 +41,15 @@ const ListenWrapper = styled.div`
 `
 
 const BreakTop = styled.hr`
-  width: 600px;
+  max-width: 600px;
+  width: 100%;
   background-color: #e5e5e5;
   margin: -3em auto 3em auto
 `
 
 const BreakBottom = styled.hr`
-  width: 600px;
+  max-width: 600px;
+  width: 100%;
   background-color: #e5e5e5;
   margin: 3em auto -3em auto
 `

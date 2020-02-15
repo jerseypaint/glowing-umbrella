@@ -18,9 +18,10 @@ const Break = styled.hr`
 `
 
 const Wrapper = styled.div`
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: center;
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
 `
 
 const Grid = styled.div`
