@@ -22,10 +22,6 @@ const GridItem = styled.div`
     
 `
 
-const footerLink = css`
-    color: #fff;
-`
-
 const footer = css`
     background-color: #000;
     color: #fff;
@@ -125,7 +121,7 @@ const Footer = () => {
                 <GridItem>
                     <h3>Follow</h3>
                     <ul>
-                    {data. allContentfulSocialMediaLinks.edges.map(link => (
+                    {data.allContentfulSocialMediaLinks.edges.map(link => (
                             <li
                             key={link.node.name}
                             >

@@ -23,23 +23,6 @@ const NewEpisodeContent = styled.div`
   margin: 0 auto;
 `
 
-const Button = styled.button`
-  display:block;
-  margin: 1em auto;
-  padding: .7em 1em;
-  border: 1px solid #000;
-  border-radius: 6px;
-  background-color: #fff;
-  color: #000;
-  text-decoration: none;
-  font-weight: 700;
-
-  &:hover {
-    background-color: #000;
-    color: #fff;
-  }
-`
-
 const PageNav = styled.div`
   display: flex;
   justify-content: space-between;
@@ -75,7 +58,7 @@ const NewEpisode = (props) => (
         <NewEpisodeContent>
           <span></span>
           <h3>{props.title}</h3>
-          <Player trackId={props.trackId} />
+          <Player title={props.title} trackId={props.trackId} />
           <ListenLinks style={{justifyContent: `center`}} />
         </NewEpisodeContent>
     </Section>
@@ -90,14 +73,14 @@ const Article = (props) => {
             </article>
         </Wrapper>
         <PageNav>
-          {props.prev !== false && <Link to={props.prev} css={PageNavLink, prev}><FontAwesomeIcon icon={faAngleDoubleLeft} color={`black`} />Prev</Link>}
-          {props.next !== false && <Link to={props.next} css={PageNavLink, next}>Next<FontAwesomeIcon icon={faAngleDoubleRight} color={`black`} /></Link>}
+          {props.prev !== false && <Link to={props.prev} css={[PageNavLink, prev]}><FontAwesomeIcon icon={faAngleDoubleLeft} color={`black`} />Prev</Link>}
+          {props.next !== false && <Link to={props.next} css={[PageNavLink, next]}>Next<FontAwesomeIcon icon={faAngleDoubleRight} color={`black`} /></Link>}
         </PageNav>
     </Section>
 )}
 
-const EpisodesPage = ({data, pathContext}) => {
-  const { next, prev } = pathContext
+const EpisodesPage = ({data, pageContext}) => {
+  const { next, prev } = pageContext
 
   return (
   <Layout>

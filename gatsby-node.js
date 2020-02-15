@@ -27,8 +27,8 @@ exports.createPages = async function({ actions, graphql }) {
         component: require.resolve(`./src/templates/episode.js`),
         context: { 
             slug: slug,
-            prev,
-            next
+            prev: prev,
+            next: next
          },
       })
     })
