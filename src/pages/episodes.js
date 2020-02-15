@@ -7,6 +7,7 @@ import { BLOCKS, MARKS } from "@contentful/rich-text-types"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import _ from 'lodash'
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -229,23 +230,15 @@ class AllEpisodes extends Component {
     let { chunksLoaded } = this.state
     let epArray = this.props.tracks
 
-    function chunk(arr, chunkSize) {
-      var R = [];
-      for (var i=0,len=arr.length; i<len; i+=chunkSize)
-        R.push(arr.slice(i,i+chunkSize));
-      return R;
-    }
-
-    let chunks = chunk(epArray, 10)
+    let chunks = _.chunk(epArray, 10)
     let renderChunks = []
 
     for (let i = 0; i < chunksLoaded; i++ ) {
       renderChunks.push(chunks[i])
     }
 
-    let flatRenderChunks = renderChunks.flat()
-    console.log(flatRenderChunks)
-  
+    let flatRenderChunks = _.flatten(renderChunks)
+
     function truncate(str) {
       return str.length > 200 ? str.substring(0, 200) + "..." : str;
     }
