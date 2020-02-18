@@ -49,11 +49,11 @@ const ContactForm = (props) => (
     </Label>
     <Label>
     <p>Email:</p>
-      <input css={fields} type="email" name="email" id="email" placeholder="johndoe@smallbiz.com" />
+      <input css={fields} type="email" name="email" id="email" placeholder="johndoe@healthcompany.com" />
     </Label>
     <Label>
     <p>Message:</p>
-      <textarea css={fields} name="message" id="message" rows="5" placeholder="I need a new website" />
+      <textarea css={fields} name="message" id="message" rows="5" placeholder="A brief message about why you are contacting us." />
     </Label>
     <button css={button} type="submit">Contact Us</button>
   </Form>

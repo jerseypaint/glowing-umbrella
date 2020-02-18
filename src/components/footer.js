@@ -3,6 +3,7 @@ import styled from "@emotion/styled"
 import { css } from "@emotion/core"
 import Img from "gatsby-image"
 import { useStaticQuery, graphql } from "gatsby"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import Section from "./section"
 import { Link } from "gatsby"
@@ -13,11 +14,15 @@ const Grid = styled.div`
 `
 
 const GridItem = styled.div`
-    width: 50%;
+    width: 100%;
     margin-bottom: 1em;
 
     @media (min-width: 767px) {
       flex: 1 1;
+
+      h3, ul {
+        padding-left: 30%;
+      }
     }
     
 `
@@ -46,6 +51,18 @@ const footer = css`
     }
 `
 
+const flexList = css`
+    display: flex;
+
+    li {
+      margin-right: 1em;
+    }
+`
+
+const mobileGridItem = css`
+    width: 50%;
+`
+
 const Footer = () => {
     const data = useStaticQuery(graphql`
     query footerQuery {
@@ -58,10 +75,21 @@ const Footer = () => {
           }
         }
       }
-      image: file(relativePath: { eq: "logo.png" }) {
-        childImageSharp {
-          fixed (width:150) {
-            ...GatsbyImageSharpFixed
+      contentfulGeneral {
+        logo {
+          fixed(width: 280) {
+            width
+            height
+            src
+            srcSet
+          }
+        }
+        hpnLogo {
+          fixed(width: 200) {
+            width
+            height
+            src
+            srcSet
           }
         }
       }
@@ -78,6 +106,7 @@ const Footer = () => {
           node {
             name
             url
+            icon
           }
         }
       }
@@ -88,9 +117,10 @@ const Footer = () => {
         <Section>
             <Grid>
                 <GridItem>
-                    <Img fixed={data.image.childImageSharp.fixed} alt="logo" />
+                    <Img fixed={data.contentfulGeneral.logo.fixed} alt={data.contentfulGeneral.logo.description} />
+                    <Img fixed={data.contentfulGeneral.hpnLogo.fixed} alt={data.contentfulGeneral.hpnLogo.description} />
                 </GridItem>
-                <GridItem>
+                <GridItem css={mobileGridItem}>
                     <h3>Read</h3>
                     <ul>
                         {data.site.siteMetadata.menuLinks.map(link => (
@@ -104,7 +134,7 @@ const Footer = () => {
                         ))}
                     </ul>
                 </GridItem>
-                <GridItem>
+                <GridItem css={mobileGridItem}>
                     <h3>Listen</h3>
                     <ul>
                     {data.allContentfulPodcastLinks.edges.map(link => (
@@ -120,13 +150,13 @@ const Footer = () => {
                 </GridItem>
                 <GridItem>
                     <h3>Follow</h3>
-                    <ul>
+                    <ul css={flexList}>
                     {data.allContentfulSocialMediaLinks.edges.map(link => (
                             <li
                             key={link.node.name}
                             >
                             <a href={link.node.url}>
-                                {link.node.name}
+                              <FontAwesomeIcon icon={['fab', `${link.node.icon}`]} />
                             </a>
                             </li>
                         ))}

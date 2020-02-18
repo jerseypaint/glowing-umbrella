@@ -78,7 +78,7 @@ const aboutGrid = css`
 
 const button = css`
   display: inline-block;
-  margin: 0 0 1em 0;
+  margin: 0 0 2em 0;
   padding: .7em 1em;
   border: 1px solid #000;
   border-radius: 6px;

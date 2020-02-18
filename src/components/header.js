@@ -159,11 +159,15 @@ const Header = () => {
           }
         }
       }
-      image: file(relativePath: { eq: "logo.png" }) {
-        childImageSharp {
-          fixed (width:150) {
-            ...GatsbyImageSharpFixed
+      contentfulGeneral {
+        logo {
+          fixed(width: 150) {
+            width
+            height
+            src
+            srcSet
           }
+          description
         }
       }
     }
@@ -172,7 +176,7 @@ const Header = () => {
   return (
       <header id={`site-header`} css={header}>
         <Wrap>
-          <Link to={`/`}><Img fixed={data.image.childImageSharp.fixed} alt="logo" /></Link>
+          <Link to={`/`}><Img fixed={data.contentfulGeneral.logo.fixed} alt={data.contentfulGeneral.logo.description} /></Link>
           <Nav>
             <ul>
               {data.site.siteMetadata.menuLinks.map(link => (
