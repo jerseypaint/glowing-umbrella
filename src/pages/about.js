@@ -12,7 +12,7 @@ import Section from "../components/section"
 import Newsletter from "../components/newsletter"
 
 const Break = styled.hr`
-  width: 600px;
+  max-width: 600px;
   background-color: #119DA4;
   margin: 1em auto 3em;
 `
