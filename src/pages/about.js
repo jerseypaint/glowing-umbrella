@@ -34,7 +34,6 @@ const ImageWrapper = styled.div`
     height: 100%;
 
     @media (min-width: 767px) {
-        width: 33.33%;
         height: 80%;
     }
     
@@ -55,6 +54,7 @@ const Socials = styled.ul`
     display: flex;
     list-style: none;
     margin-top: 1em;
+    margin-left: 0;
     li {
         padding: 0 1em;
         border-right: 1px solid #000;
