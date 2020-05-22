@@ -44,14 +44,14 @@ const BreakTop = styled.hr`
   max-width: 600px;
   width: 100%;
   background-color: #e5e5e5;
-  margin: -3em auto 3em auto
+  margin: -3em auto 3em auto;
 `
 
 const BreakBottom = styled.hr`
   max-width: 600px;
   width: 100%;
   background-color: #e5e5e5;
-  margin: 3em auto -3em auto
+  margin: 3em auto -3em auto;
 `
 
 const NewEpisodeGrid = css`
