@@ -243,6 +243,7 @@ export const query = graphql`
     }
     episode {
       name
+      id
     }
   }
 `

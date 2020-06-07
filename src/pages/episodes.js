@@ -367,6 +367,7 @@ export const query = graphql`
       images {
         url
       }
+      id
     }
     allEpisode(skip: 1) {
       edges {
