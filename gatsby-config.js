@@ -66,13 +66,7 @@ module.exports = {
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
-    {
-      resolve: `gatsby-source-soundcloud`,
-      options: {
-        userID: process.env.SOUNDCLOUD_USER_ID,
-        clientID: process.env.SOUNDCLOUD_CLIENT_ID,
-      },
-    },
+
     `gatsby-plugin-emotion`,
     {
       resolve: `gatsby-source-contentful`,
@@ -85,5 +79,12 @@ module.exports = {
       },
     },
     `gatsby-plugin-lodash`,
+    {
+      resolve: `gatsby-source-spotify`,
+      options: {
+        clientId: process.env.SPOTIFY_CLIENT_ID,
+        clientSecret: process.env.SPOTIFY_CLIENT_SECRET
+      }
+    }
   ],
 }

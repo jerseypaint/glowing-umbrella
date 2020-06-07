@@ -9,19 +9,23 @@
 exports.createPages = async function({ actions, graphql }) {
     const { data } = await graphql(`
         query {
-            allSoundcloudtrack {
+            allEpisode {
                 edges {
                     node {
-                        permalink
+                        name
+                        id
                     }
                 }
             }
         }
     `)
-    data.allSoundcloudtrack.edges.forEach((edge, index) => {
-    const next = index === 0 ? false : data.allSoundcloudtrack.edges[index - 1].node.permalink
-    const prev = index === data.allSoundcloudtrack.edges.length - 1 ? false : data.allSoundcloudtrack.edges[index + 1].node.permalink
-    const slug = edge.node.permalink
+    data.allEpisode.edges.forEach((edge, index) => {
+    const next = index === 0 ? false : data.allEpisode.edges[index - 1].node.id
+    const prev = index === data.allEpisode.edges.length - 1 ? false : data.allEpisode.edges[index + 1].node.id
+    const slug = edge.node.id
+    
+    //const slug = edge.node.name.replace(/[\W_]/g, "-")
+
       actions.createPage({
         path: slug,
         component: require.resolve(`./src/templates/episode.js`),

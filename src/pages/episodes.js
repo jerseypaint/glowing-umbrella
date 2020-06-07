@@ -74,6 +74,7 @@ const NewEpisodeContent = styled.div`
 const TrackImage = styled.img`
   width: auto;
   height: 100%;
+  max-width: 200px;
 `
 const AllEpisodesHeader = styled.div`
   display: flex;
@@ -95,6 +96,8 @@ const FormWrapper = styled.div`
 
 const SearchForm = styled.form`
     display: flex;
+
+    display: none;
 `
 
 const SearchButton = styled.button`
@@ -110,6 +113,7 @@ const SearchButton = styled.button`
         color: #119DA4;
       }
     }
+
 `
 const AllEpisodesList = styled.div`
   
@@ -232,6 +236,7 @@ class AllEpisodes extends Component {
   }
 
   renderEpisodes = () => {
+   
 
     let { chunksLoaded } = this.state
     let epArray = this.props.tracks
@@ -272,14 +277,14 @@ class AllEpisodes extends Component {
 
 
     return flatRenderChunks.map( track => (
-      <Episode key={track.node.permalink}>
-          <TrackImage src={track.node.artwork_url} />
+      <Episode key={track.node.id}>
+          <TrackImage src={track.node.images[0].url} />
           <EpisodeMeta>
-              <p>{truncateDate(track.node.created_at, 10)}</p>
-              <p>{timeConversion(track.node.duration)}</p>
+              <p>{truncateDate(track.node.release_date, 10)}</p>
+              <p>{timeConversion(track.node.duration_ms)}</p>
           </EpisodeMeta>
           <EpisodeDescription>
-              <h3><Link to={`/${track.node.permalink}`}>{track.node.title}</Link></h3>
+              <h3><Link to={`/${track.node.id}`}>{track.node.name}</Link></h3>
               <p>{truncate(track.node.description, 200)}</p>
           </EpisodeDescription>
       </Episode>
@@ -324,26 +329,27 @@ class AllEpisodes extends Component {
     </Section>
 )}}
 
-const EpisodesPage = ({data}) => (
-  <Layout>
+const EpisodesPage = ({data}) => {
+  return (
+    <Layout>
     <SEO title="Episodes" />
     <Header 
       title={data.contentfulEpisodesPage.headerTitle}
       body={data.contentfulEpisodesPage.headerBody.json}
     />
     <NewEpisode
-      image={data.soundcloudtrack.artwork_url}
-      title={data.soundcloudtrack.title}
-      description={data.soundcloudtrack.description}
-      link={data.soundcloudtrack.permalink}
+      image={data.episode.images[0].url}
+      title={data.episode.name}
+      description={data.episode.description}
+      link={data.episode.id}
       />
     <AllEpisodes 
       title={`More Episodes`}
-      tracks={data.allSoundcloudtrack.edges}
+      tracks={data.allEpisode.edges}
     />
     <Newsletter />
   </Layout>
-)
+)}
 
 export default EpisodesPage
 
@@ -355,21 +361,24 @@ export const query = graphql`
         json
       }
     }
-    soundcloudtrack {
-      title
+    episode {
+      name
       description
-      artwork_url
-      permalink
+      images {
+        url
+      }
     }
-    allSoundcloudtrack(skip: 1) {
+    allEpisode(skip: 1) {
       edges {
         node {
-          artwork_url
+          images {
+            url
+          }
           description
-          created_at
-          duration
-          title
-          permalink
+          release_date
+          duration_ms
+          name
+          id
         }
       }
     }

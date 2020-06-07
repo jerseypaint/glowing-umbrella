@@ -200,8 +200,8 @@ const IndexPage = ({data}) => {
       style={{backgroundImage: `url(${home.heroImage.fluid.src})`}}
       title = {home.heroTitle}
       body = {home.heroBody.json}
-      trackTitle = {data.soundcloudtrack.title}
-      link = {data.soundcloudtrack.permalink} 
+      trackTitle = {data.episode.name}
+      link = {data.episode.id} 
         />
 
     <ViewEpisodes 
@@ -241,9 +241,8 @@ export const query = graphql`
         json
       }
     }
-    soundcloudtrack {
-      title
-      permalink
+    episode {
+      name
     }
   }
 `

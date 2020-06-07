@@ -64,7 +64,7 @@ const NewEpisode = (props) => (
         <NewEpisodeContent>
           <span></span>
           <h3>{props.title}</h3>
-          <Player title={props.title} trackId={props.trackId} />
+          <Player title={props.title} src={props.src} />
           <ListenLinks style={{justifyContent: `center`}} />
         </NewEpisodeContent>
         <Break />
@@ -91,13 +91,13 @@ const EpisodesPage = ({data, pageContext}) => {
 
   return (
   <Layout>
-    <SEO title={data.soundcloudtrack.title} />
+    <SEO title={data.episode.name} />
     <NewEpisode
-      title={data.soundcloudtrack.title}
-      trackId={data.soundcloudtrack.soundcloud_id}
+      title={data.episode.name}
+      src={data.episode.uri}
     />
     <Article 
-      body={data.soundcloudtrack.description}
+      body={data.episode.description}
       prev={prev}
       next={next}
     />
@@ -109,12 +109,14 @@ export default EpisodesPage
 
 export const query = graphql`
   query($slug: String!) {
-    soundcloudtrack(permalink: { eq: $slug }) {
-      artwork_url
+    episode(id: { eq: $slug }) {
+      images {
+        url
+      }
       description
-      title
-      soundcloud_id
-      permalink
+      name
+      id
+      uri
     }
   }
 `

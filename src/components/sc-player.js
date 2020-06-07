@@ -1,8 +1,13 @@
 import React from "react"
 
-const Player = (props) => (
-    <iframe title={props.title} width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src={`https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${props.trackId}`}>
-    </iframe>
-)
+const Player = (props) => {
+  
+  const srcId = props.src.split(":")[2]
+  
+  return (
+    <iframe src={`https://open.spotify.com/embed-podcast/episode/${srcId}`} width="100%" height="232" frameborder="0" allowtransparency="true" allow="encrypted-media" title={props.title}></iframe>
+  )
+}
   
   export default Player
+
