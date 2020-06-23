@@ -224,7 +224,7 @@ const NewEpisode = (props) => {
             <NewEpisodeContent>
               <span></span>
               <h3><Link to={`/${props.link}`}>{props.title}</Link></h3>
-              <p> {truncate(props.description)} ... <Link to={props.link}>Listen Now</Link></p>
+              <p> {truncate(props.description)} ... <Link to={`/${props.link}`}>Listen Now</Link></p>
             </NewEpisodeContent>
         </Grid>
       <BreakBottom />
