@@ -51,7 +51,8 @@ exports.sourceNodes = async ({
                         url: 'https://api.spotify.com/v1/shows/2vClZVAJHI7mZZjVycUXzP/episodes',
                         method: 'get',
                         params: {
-                            market: 'US'
+                            market: 'US',
+                            limit: 50
                         },
                         headers: {
                             'Accept':'application/json',

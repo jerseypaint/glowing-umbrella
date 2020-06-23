@@ -5,6 +5,7 @@ import { StaticQuery, graphql } from "gatsby"
 const Grid = styled.ul`
     display: flex;
     flex-flow: row wrap;
+    justify-content: center;
     list-style: none;
     margin: 0;
     padding: 0;

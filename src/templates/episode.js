@@ -12,6 +12,7 @@ import Section from "../components/section"
 import ListenLinks from "../components/listen-links"
 import Newsletter from "../components/newsletter"
 import Player from "../components/sc-player"
+import { Linkify }from "../utils/linkify"
 
 const Break = styled.hr`
   max-width: 600px;
@@ -80,8 +81,8 @@ const Article = (props) => {
             </article>
         </Wrapper>
         <PageNav>
-          {props.prev !== false && <Link to={props.prev} css={[PageNavLink, prev]}><FontAwesomeIcon icon={faAngleDoubleLeft} color={`black`} />Prev</Link>}
-          {props.next !== false && <Link to={props.next} css={[PageNavLink, next]}>Next<FontAwesomeIcon icon={faAngleDoubleRight} color={`black`} /></Link>}
+          {props.prev !== `/false` && <Link to={props.prev} css={[PageNavLink, prev]}><FontAwesomeIcon icon={faAngleDoubleLeft} color={`black`} />Prev</Link>}
+          {props.next !== `/false` && <Link to={props.next} css={[PageNavLink, next]}>Next<FontAwesomeIcon icon={faAngleDoubleRight} color={`black`} /></Link>}
         </PageNav>
     </Section>
 )}
@@ -98,8 +99,8 @@ const EpisodesPage = ({data, pageContext}) => {
     />
     <Article 
       body={data.episode.description}
-      prev={prev}
-      next={next}
+      prev={`/${prev}`}
+      next={`/${next}`}
     />
     <Newsletter />
   </Layout>
@@ -108,8 +109,8 @@ const EpisodesPage = ({data, pageContext}) => {
 export default EpisodesPage
 
 export const query = graphql`
-  query($slug: String!) {
-    episode(id: { eq: $slug }) {
+  query($id: String!) {
+    episode(id: { eq: $id }) {
       images {
         url
       }

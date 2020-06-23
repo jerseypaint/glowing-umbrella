@@ -14,7 +14,7 @@ import SEO from "../components/seo"
 import Section from "../components/section"
 import ListenLinks from "../components/listen-links"
 import Newsletter from "../components/newsletter"
-
+import {Linkify} from "../utils/linkify"
 
 const Content = styled.div`
   max-width: 600px;
@@ -201,7 +201,7 @@ const IndexPage = ({data}) => {
       title = {home.heroTitle}
       body = {home.heroBody.json}
       trackTitle = {data.episode.name}
-      link = {data.episode.id} 
+      link = {Linkify(data.episode.name)} 
         />
 
     <ViewEpisodes 

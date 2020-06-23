@@ -15,9 +15,13 @@ import Section from "../components/section"
 import ListenLinks from "../components/listen-links"
 import Newsletter from "../components/newsletter"
 import { Component } from "react"
+import {Linkify} from "../utils/linkify"
 
 const Grid = styled.div`
+  text-align: center;
+
   @media (min-width: 767px) {
+    text-align: left;
     display: flex;
   }
 `
@@ -29,6 +33,7 @@ const Wrapper = styled.div`
 `
 
 const ListenWrapper = styled.div`
+
   p {
     margin-bottom: 0;
     margin-left: 1em;
@@ -73,8 +78,8 @@ const NewEpisodeContent = styled.div`
 
 const TrackImage = styled.img`
   width: auto;
-  height: 100%;
   max-width: 200px;
+  align-self: flex-start;
 `
 const AllEpisodesHeader = styled.div`
   display: flex;
@@ -116,7 +121,10 @@ const SearchButton = styled.button`
 
 `
 const AllEpisodesList = styled.div`
-  
+  text-align: center;
+  @media (min-width: 767px) {
+    text-align: left;
+  }
 `
 
 const EpisodeMeta = styled.div`
@@ -215,7 +223,7 @@ const NewEpisode = (props) => {
             <TrackImage src={props.image} />
             <NewEpisodeContent>
               <span></span>
-              <h3><Link to={props.link}>{props.title}</Link></h3>
+              <h3><Link to={`/${props.link}`}>{props.title}</Link></h3>
               <p> {truncate(props.description)} ... <Link to={props.link}>Listen Now</Link></p>
             </NewEpisodeContent>
         </Grid>
@@ -284,7 +292,7 @@ class AllEpisodes extends Component {
               <p>{timeConversion(track.node.duration_ms)}</p>
           </EpisodeMeta>
           <EpisodeDescription>
-              <h3><Link to={`/${track.node.id}`}>{track.node.name}</Link></h3>
+              <h3><Link to={`/${Linkify(track.node.name)}`}>{track.node.name}</Link></h3>
               <p>{truncate(track.node.description, 200)}</p>
           </EpisodeDescription>
       </Episode>
@@ -341,7 +349,7 @@ const EpisodesPage = ({data}) => {
       image={data.episode.images[0].url}
       title={data.episode.name}
       description={data.episode.description}
-      link={data.episode.id}
+      link={Linkify(data.episode.name)}
       />
     <AllEpisodes 
       title={`More Episodes`}
