@@ -35,7 +35,7 @@ const Contact = ({data}) => (
         <div>
             {documentToReactComponents(data.contentfulContactPage.headerBody.json, options)}  
           </div>
-        <Form />
+        <Form name={`Contact`} method="post" netlify-honeypot="bot-field" data-netlify="true" />
       </Wrapper>
     </Section>
   </Layout>

@@ -7,10 +7,9 @@ const Form = styled.form`
 `
 const Label = styled.label`
   display: block;
-  p {
-    margin-bottom: 4px;
-  }
-}
+    p {
+      margin-bottom: 4px;
+    }
 `
 
 const button =css`
