@@ -41,17 +41,28 @@ const Button = styled(Link)`
     }
 `
 
-const Newsletter = () => (
-  <Section style={{backgroundColor: `#119DA4`}}>
-    <Grid>
-        <Content>
-            <h2>Want to be on the show? Have topic suggestions? I'd love to hear from you!</h2>
-        </Content>
-        <div>
-            <Button to={`/contact`}>Contact Us</Button>
-        </div>
-    </Grid>
-  </Section>
-)
+const Newsletter = () => {
+    const data = useStaticQuery(graphql`
+    query headerQuery {
+      contentfulGeneral {
+        callToAction
+        ctaButtonText
+      }
+    }
+  `)
+
+    return (
+    <Section style={{backgroundColor: `#119DA4`}}>
+        <Grid>
+            <Content>
+            <h2>{data.ctaButtonText}</h2>
+            </Content>
+            <div>
+    <Button to={`/contact`}>{data.ctaButtonText}</Button>
+            </div>
+        </Grid>
+    </Section>
+    )
+}
   
   export default Newsletter
