@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "@emotion/styled"
 import { Link } from "gatsby"
-
+import { useStaticQuery, graphql } from "gatsby"
 import Section from "./section"
 
 const Grid = styled.div`
@@ -43,7 +43,7 @@ const Button = styled(Link)`
 
 const Newsletter = () => {
     const data = useStaticQuery(graphql`
-    query headerQuery {
+    query newsletterQuery {
       contentfulGeneral {
         callToAction
         ctaButtonText
@@ -55,10 +55,10 @@ const Newsletter = () => {
     <Section style={{backgroundColor: `#119DA4`}}>
         <Grid>
             <Content>
-            <h2>{data.ctaButtonText}</h2>
+            <h2>{data.contentfulGeneral.callToAction}</h2>
             </Content>
             <div>
-    <Button to={`/contact`}>{data.ctaButtonText}</Button>
+    <Button to={`/contact`}>{data.contentfulGeneral.ctaButtonText}</Button>
             </div>
         </Grid>
     </Section>
