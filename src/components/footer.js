@@ -4,6 +4,7 @@ import { css } from "@emotion/core"
 import Img from "gatsby-image"
 import { useStaticQuery, graphql } from "gatsby"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { PopupWidget } from "react-calendly"
 
 import Section from "./section"
 import { Link } from "gatsby"
@@ -164,6 +165,7 @@ const Footer = () => {
                 </GridItem>
             </Grid>
         </Section>
+        <PopupWidget url="https://calendly.com/healthunchained?hide_gdpr_banner=1" />
     </footer>
 )}
   
