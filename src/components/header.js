@@ -1,6 +1,6 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import Img from "gatsby-image"
+import { GatsbyImage } from "gatsby-plugin-image"
 import { Link } from "gatsby"
 import { css } from "@emotion/core"
 import styled from "@emotion/styled"
@@ -176,7 +176,7 @@ const Header = () => {
   return (
       <header id={`site-header`} css={header}>
         <Wrap>
-          <Link to={`/`}><Img fixed={data.contentfulGeneral.logo.fixed} alt={data.contentfulGeneral.logo.description} /></Link>
+          {/* <Link to={`/`}><GatsbyImage image={data.contentfulGeneral.logo.fixed} alt={data.contentfulGeneral.logo.description} /></Link> */}
           <Nav>
             <ul>
               {data.site.siteMetadata.menuLinks.map(link => (
