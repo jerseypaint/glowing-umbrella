@@ -351,9 +351,7 @@ export const query = graphql`
   query EpisodesData {
     contentfulEpisodesPage {
       headerTitle
-      headerBody {
-        json
-      }
+
     }
     soundcloudtrack {
       title

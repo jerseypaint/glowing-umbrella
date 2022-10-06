@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "@emotion/styled"
 import { css } from "@emotion/core"
-import Img from "gatsby-image"
+import { GatsbyImage } from "gatsby-plugin-image"
 import { useStaticQuery, graphql } from "gatsby"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -117,8 +117,8 @@ const Footer = () => {
         <Section>
             <Grid>
                 <GridItem>
-                    <Img fixed={data.contentfulGeneral.logo.fixed} alt={data.contentfulGeneral.logo.description} />
-                    <Img fixed={data.contentfulGeneral.hpnLogo.fixed} alt={data.contentfulGeneral.hpnLogo.description} />
+                    {/* <GatsbyImage image={data.contentfulGeneral.logo.fixed} alt={data.contentfulGeneral.logo.description} />
+                    <GatsbyImage image={data.contentfulGeneral.hpnLogo.fixed} alt={data.contentfulGeneral.hpnLogo.description} /> */}
                 </GridItem>
                 <GridItem css={mobileGridItem}>
                     <h3>Read</h3>

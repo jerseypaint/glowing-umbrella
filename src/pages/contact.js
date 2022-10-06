@@ -46,9 +46,7 @@ export const query = graphql`
   query ContactData {
     contentfulContactPage {
       headerTitle
-      headerBody {
-        json
-      }
+
     }
   }
 `

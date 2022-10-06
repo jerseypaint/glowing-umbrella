@@ -224,9 +224,7 @@ export const query = graphql`
     contentfulHomePage {
       aboutTitle
       aboutTopicList
-      heroBody {
-        json
-      }
+
       heroTitle
       heroImage {
         fluid(maxWidth: 1920) {
@@ -234,12 +232,7 @@ export const query = graphql`
         }
       }
       viewEpisodesTitle
-      viewEpisodesBody {
-        json
-      }
-      aboutBody {
-        json
-      }
+
     }
     soundcloudtrack {
       title

@@ -7,7 +7,7 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import Image from "gatsby-image"
+import { GatsbyImage } from "gatsby-plugin-image"
 import Section from "../components/section"
 import Newsletter from "../components/newsletter"
 
@@ -113,7 +113,7 @@ const AboutRay = (props) => (
         <Break />
         <Grid>
             <ImageWrapper>
-                <Image fluid={props.image} />
+                <GatsbyImage image={props.image} />
                 <Socials>
                     {props.socials.map( social => (
                         <li><a href={social.node.url}>{social.node.name}</a></li>
@@ -136,7 +136,7 @@ const AboutHU = (props) => (
              {documentToReactComponents(props.body, options)}  
             </HuContent>
             <ImageWrapper css={HuImageWrapper}>
-                <Image fluid={props.image} />
+                <GatsbyImage image={props.image} />
             </ImageWrapper>
         </Grid>
     </Section>
@@ -174,9 +174,7 @@ export const query = graphql`
     query AboutData {
         contentfulAboutPage {
             headerTitle
-            aboutRayContent {
-                json
-            }
+
             aboutRayImage {
                 fluid {
                     sizes
@@ -193,12 +191,8 @@ export const query = graphql`
                     srcSet
                   }
             }
-            aboutHuContent {
-                json
-            }
-            headerDescription {
-                json
-            }
+
+
         }
         allContentfulSocialMediaLinks {
             edges {
