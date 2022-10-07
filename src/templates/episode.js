@@ -3,8 +3,6 @@ import { Link } from "gatsby"
 import { graphql } from 'gatsby'
 import styled from "@emotion/styled"
 import { css } from "@emotion/react"
-import { renderRichText } from "gatsby-source-contentful/rich-text"
-import { INLINES, BLOCKS, MARKS } from '@contentful/rich-text-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDoubleLeft, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons'
 
@@ -79,7 +77,7 @@ const Article = (props) => {
     <Section>
         <Wrapper>
             <article>
-              {renderRichText(props.body)} 
+            {addLineBreaks(props.body)}  
             </article>
         </Wrapper>
         <PageNav>
