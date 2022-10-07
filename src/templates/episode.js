@@ -111,9 +111,6 @@ export default EpisodesPage
 export const query = graphql`
   query($id: String!) {
     episode(id: { eq: $id }) {
-      images {
-        url
-      }
       description
       name
       id
