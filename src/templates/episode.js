@@ -77,7 +77,7 @@ const Article = (props) => {
     <Section>
         <Wrapper>
             <article>
-            {addLineBreaks(props.body)}  
+              {addLineBreaks(props.body)}  
             </article>
         </Wrapper>
         <PageNav>

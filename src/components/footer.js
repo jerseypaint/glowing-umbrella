@@ -66,50 +66,54 @@ const mobileGridItem = css`
 
 const Footer = () => {
     const data = useStaticQuery(graphql`
-    query footerQuery {
-      site {
-        siteMetadata {
-          title
-          menuLinks {
-            name
-            link
+      query footerQuery {
+        site {
+          siteMetadata {
+            title
+            menuLinks {
+              name
+              link
+            }
+          }
+        }
+        contentfulGeneral {
+          logo {
+            gatsbyImageData(width: 280)
+          }
+          hpnLogo {
+            gatsbyImageData(width: 200)
+          }
+        }
+        allContentfulPodcastLinks {
+          edges {
+            node {
+              name
+              url
+            }
+          }
+        }
+        allContentfulSocialMediaLinks {
+          edges {
+            node {
+              name
+              url
+              icon
+            }
           }
         }
       }
-      contentfulGeneral {
-        logo {
-          gatsbyImageData(layout: FIXED, width: 280)
-        }
-        hpnLogo {
-          gatsbyImageData(layout: FIXED, width: 200)
-        }
-      }
-      allContentfulPodcastLinks {
-        edges {
-          node {
-            name
-            url
-          }
-        }
-      }
-      allContentfulSocialMediaLinks {
-        edges {
-          node {
-            name
-            url
-            icon
-          }
-        }
-      }
-    }
   `)
     return (
     <footer css={footer}>
         <Section>
             <Grid>
                 <GridItem>
-                    <GatsbyImage image={data.contentfulGeneral.logo} alt={data.contentfulGeneral.logo.description} />
-                    <GatsbyImage image={data.contentfulGeneral.hpnLogo} alt={data.contentfulGeneral.hpnLogo.description} />
+                    {data.contentfulGeneral.logo.gatsbyImageData &&
+                      <GatsbyImage image={data.contentfulGeneral.logo.gatsbyImageData} alt={data.contentfulGeneral.logo.description} />
+                    }
+                    {data.contentfulGeneral.hpnLogo.gatsbyImageData &&
+                      <GatsbyImage image={data.contentfulGeneral.hpnLogo.gatsbyImageData} alt={data.contentfulGeneral.hpnLogo.description} />
+                    }
                 </GridItem>
                 <GridItem css={mobileGridItem}>
                     <h3>Read</h3>

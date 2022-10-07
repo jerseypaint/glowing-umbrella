@@ -161,7 +161,7 @@ const Header = () => {
       }
       contentfulGeneral {
         logo {
-          gatsbyImageData(layout: FULL_WIDTH)
+          gatsbyImageData(width: 200)
           description
         }
       }
@@ -172,7 +172,10 @@ const Header = () => {
       <header id={`site-header`} css={header}>
         <Wrap>
           <Link to={`/`}>
-            <GatsbyImage image={data.contentfulGeneral.logo.fixed} alt={data.contentfulGeneral.logo.description} />
+            {data.contentfulGeneral.logo.gatsbyImageData &&
+              <GatsbyImage image={data.contentfulGeneral.logo.gatsbyImageData} alt={data.contentfulGeneral.logo.description} />
+            }
+            
             </Link>
           <Nav>
             <ul>
