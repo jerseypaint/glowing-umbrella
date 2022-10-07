@@ -211,8 +211,6 @@ const IndexPage = ({data}) => {
       title={home.viewEpisodesTitle}
       body={home.viewEpisodesBody}
         />
-    <Script src="https://app.supercast.com/js/embed.js" />
-    <supercast-plan code="993dbcec-93cf-45ce-b981-925fb1828623"></supercast-plan>
     <About
       title={home.aboutTitle}
       body={home.aboutBody} 
