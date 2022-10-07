@@ -1,10 +1,13 @@
 import React from "react"
 import { Link } from "gatsby"
 import { graphql } from 'gatsby'
-import { BLOCKS, MARKS } from "@contentful/rich-text-types"
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
+import { INLINES, BLOCKS, MARKS } from '@contentful/rich-text-types'
+import { renderRichText } from 'gatsby-source-contentful/rich-text'
+import { Script } from "gatsby"
+import { getSrc } from "gatsby-plugin-image"
+
 import styled from "@emotion/styled"
-import { css } from "@emotion/core"
+import { css } from "@emotion/react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlayCircle  } from '@fortawesome/free-regular-svg-icons'
 import { faCaretRight  } from '@fortawesome/free-solid-svg-icons'
@@ -134,13 +137,14 @@ const options = {
 }
 
 const Hero = (props) => {
+  const src = getSrc(props.heroBgImage)
   return (
-    <Section style={props.style}>
+    <Section style={{backgroundImage: `url(${src})`}}>
       <Content css={heroContent}>
         <InnerHero>  
           <h1>{props.title}</h1>
           <div>
-            {documentToReactComponents(props.body, options)}  
+            {renderRichText(props.body, options)} 
           </div>
         </InnerHero>
         <InnerHero>
@@ -160,7 +164,7 @@ const ViewEpisodes = (props) => {
     <Wrapper>
       <h2>{props.title}</h2>
       <div>
-          {documentToReactComponents(props.body, options)}  
+        {renderRichText(props.body, options)} 
       </div>
       <Link to="/episodes" css={button}>View Episodes</Link>
     </Wrapper>
@@ -176,7 +180,7 @@ const About = (props) => {
       <Content css={aboutContent}>
         <h2>{props.title}</h2>
         <div>
-          {documentToReactComponents(props.body, options)}  
+          {renderRichText(props.body, options)}  
         </div>
       </Content>
       <Topics className={`fa-ul`}>
@@ -197,20 +201,21 @@ const IndexPage = ({data}) => {
   <Layout>
     <SEO title="Home" />
     <Hero
-      style={{backgroundImage: `url(${home.heroImage.fluid.src})`}}
+      heroBgImage = {home.heroImage.gatsbyImageData}
       title = {home.heroTitle}
-      body = {home.heroBody.json}
+      body = {home.heroBody}
       trackTitle = {data.episode.name}
       link = {Linkify(data.episode.name)} 
         />
-
     <ViewEpisodes 
       title={home.viewEpisodesTitle}
-      body={home.viewEpisodesBody.json}
+      body={home.viewEpisodesBody}
         />
+    <Script src="https://app.supercast.com/js/embed.js" />
+    <supercast-plan code="993dbcec-93cf-45ce-b981-925fb1828623"></supercast-plan>
     <About
       title={home.aboutTitle}
-      body={home.aboutBody.json} 
+      body={home.aboutBody} 
       items={home.aboutTopicList}
         />
     <Newsletter />
@@ -225,20 +230,24 @@ export const query = graphql`
       aboutTitle
       aboutTopicList
       heroBody {
-        json
+        raw
+        __typename
       }
       heroTitle
       heroImage {
-        fluid(maxWidth: 1920) {
-          src
-        }
+        gatsbyImageData(
+          placeholder: BLURRED
+          formats: [AUTO, WEBP, AVIF]
+        )
       }
       viewEpisodesTitle
       viewEpisodesBody {
-        json
+        raw
+        __typename
       }
       aboutBody {
-        json
+        raw
+        __typename
       }
     }
     episode {

@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "@emotion/styled"
-import { BLOCKS, MARKS } from "@contentful/rich-text-types"
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
+import { renderRichText } from 'gatsby-source-contentful/rich-text'
+import { INLINES, BLOCKS, MARKS } from '@contentful/rich-text-types'
 import { graphql } from 'gatsby'
 
 import Layout from "../components/layout"
@@ -33,7 +33,7 @@ const Contact = ({data}) => (
       <Wrapper>
         <h2>{data.contentfulContactPage.headerTitle}</h2>
         <div>
-            {documentToReactComponents(data.contentfulContactPage.headerBody.json, options)}  
+          {renderRichText(data.contentfulContactPage.headerBody, options)} 
           </div>
         <Form name={`Contact`} method="post" netlify-honeypot="bot-field" data-netlify="true" />
       </Wrapper>
@@ -48,7 +48,7 @@ export const query = graphql`
     contentfulContactPage {
       headerTitle
       headerBody {
-        json
+        raw
       }
     }
   }

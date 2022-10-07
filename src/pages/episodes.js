@@ -2,8 +2,10 @@ import React from "react"
 import { Link } from "gatsby"
 import { graphql } from 'gatsby'
 import styled from "@emotion/styled"
-import { css } from "@emotion/core"
-import { BLOCKS, MARKS } from "@contentful/rich-text-types"
+import { css } from "@emotion/react"
+import { INLINES, BLOCKS, MARKS } from '@contentful/rich-text-types'
+import { renderRichText } from 'gatsby-source-contentful/rich-text'
+
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
@@ -201,8 +203,8 @@ const Header = (props) => (
     <Wrapper>
       <h2>{props.title}</h2>
       <div>
-            {documentToReactComponents(props.body, options)}  
-          </div>
+        {renderRichText(props.body, options)} 
+      </div>
     </Wrapper>
     <ListenWrapper>
       <p>Other ways to listen:</p><ListenLinks />
@@ -343,7 +345,7 @@ const EpisodesPage = ({data}) => {
     <SEO title="Episodes" />
     <Header 
       title={data.contentfulEpisodesPage.headerTitle}
-      body={data.contentfulEpisodesPage.headerBody.json}
+      body={data.contentfulEpisodesPage.headerBody}
     />
     <NewEpisode
       image={data.episode.images[0].url}
@@ -366,7 +368,7 @@ export const query = graphql`
     contentfulEpisodesPage {
       headerTitle
       headerBody {
-        json
+        raw
       }
     }
     episode {

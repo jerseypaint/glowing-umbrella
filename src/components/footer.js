@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "@emotion/styled"
-import { css } from "@emotion/core"
-import Img from "gatsby-image"
+import { css } from "@emotion/react"
+import { GatsbyImage } from "gatsby-plugin-image"
 import { useStaticQuery, graphql } from "gatsby"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { PopupWidget } from "react-calendly"
@@ -78,20 +78,10 @@ const Footer = () => {
       }
       contentfulGeneral {
         logo {
-          fixed(width: 280) {
-            width
-            height
-            src
-            srcSet
-          }
+          gatsbyImageData(layout: FIXED, width: 280)
         }
         hpnLogo {
-          fixed(width: 200) {
-            width
-            height
-            src
-            srcSet
-          }
+          gatsbyImageData(layout: FIXED, width: 200)
         }
       }
       allContentfulPodcastLinks {
@@ -118,8 +108,8 @@ const Footer = () => {
         <Section>
             <Grid>
                 <GridItem>
-                    <Img fixed={data.contentfulGeneral.logo.fixed} alt={data.contentfulGeneral.logo.description} />
-                    <Img fixed={data.contentfulGeneral.hpnLogo.fixed} alt={data.contentfulGeneral.hpnLogo.description} />
+                    <GatsbyImage image={data.contentfulGeneral.logo} alt={data.contentfulGeneral.logo.description} />
+                    <GatsbyImage image={data.contentfulGeneral.hpnLogo} alt={data.contentfulGeneral.hpnLogo.description} />
                 </GridItem>
                 <GridItem css={mobileGridItem}>
                     <h3>Read</h3>
@@ -165,7 +155,12 @@ const Footer = () => {
                 </GridItem>
             </Grid>
         </Section>
-        <PopupWidget url="https://calendly.com/healthunchained?hide_gdpr_banner=1" />
+        <PopupWidget
+          url="https://calendly.com/healthunchained?hide_gdpr_banner=1"
+          text="Schedule a Meeting"
+          textColor="#ffffff"
+          color="#0069ff"
+          />
     </footer>
 )}
   

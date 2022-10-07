@@ -35,6 +35,10 @@ module.exports = {
         link:'/about'
       },
       {
+        name:'support',
+        link:'/support'
+      },
+      {
         name:'contact',
         link:'/contact'
       }
@@ -49,8 +53,6 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -72,12 +74,6 @@ module.exports = {
       resolve: `gatsby-source-contentful`,
       options: contentfulConfig,
     },
-    {
-      resolve: `gatsby-plugin-typography`,
-      options: {
-        pathToConfigModule: `src/utils/typography`,
-      },
-    },
     `gatsby-plugin-lodash`,
     {
       resolve: `gatsby-source-spotify`,
@@ -85,6 +81,26 @@ module.exports = {
         clientId: process.env.SPOTIFY_CLIENT_ID,
         clientSecret: process.env.SPOTIFY_CLIENT_SECRET
       }
-    }
+    },
+    {
+      resolve: `gatsby-omni-font-loader`,
+      options: {
+        enableListener: true,
+        preconnect: [`https://fonts.googleapis.com`, `https://fonts.gstatic.com`],
+        web: [
+          {
+            name: `Roboto Slab`,
+            file: `https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap`,
+          },
+          {
+            name: `Hind Siliguri`,
+            file: `https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;700&display=swap`,
+          },
+        ],
+      },
+    },
+    `gatsby-plugin-image`,
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`, // Needed for dynamic images
   ],
 }

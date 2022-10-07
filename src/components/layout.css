@@ -525,3 +525,22 @@ pre tt:after {
     font-size: 100%;
   }
 }
+
+body {
+  font-family: "Hind Siliguri", "san-serif";
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: "Roboto Slab", "Georgia", "serif";
+}
+
+h1 {
+  font-size: 3.375rem;
+}
+
+h2 {
+  font-size: 2.1375rem;
+  line-height: 1.1;
+}

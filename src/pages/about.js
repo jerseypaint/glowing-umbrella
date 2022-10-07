@@ -1,13 +1,13 @@
 import React from "react"
 import { graphql } from 'gatsby'
-import { css } from "@emotion/core"
+import { css } from "@emotion/react"
 import styled from "@emotion/styled"
-import { BLOCKS, MARKS } from "@contentful/rich-text-types"
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
+import { renderRichText } from 'gatsby-source-contentful/rich-text'
+import { INLINES, BLOCKS, MARKS } from '@contentful/rich-text-types'
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import Image from "gatsby-image"
+import { GatsbyImage } from "gatsby-plugin-image"
 import Section from "../components/section"
 import Newsletter from "../components/newsletter"
 
@@ -35,6 +35,9 @@ const ImageWrapper = styled.div`
 
     @media (min-width: 767px) {
         height: 80%;
+        width: 100%;
+        max-width: 40%;
+        flex: 1 0 auto;
     }
     
     .gatsby-image-wrapper {
@@ -44,7 +47,7 @@ const ImageWrapper = styled.div`
     }
 `
 const RayContent = styled.div`
-    flex: 1 1;
+    flex: 0 1 auto;
     @media (min-width: 767px) {
         margin-left: 2em;
     }
@@ -52,6 +55,7 @@ const RayContent = styled.div`
 
 const Socials = styled.ul`
     display: flex;
+    flex-flow: row wrap;
     list-style: none;
     margin-top: 1em;
     margin-left: 0;
@@ -66,7 +70,7 @@ const Socials = styled.ul`
 `
 
 const HuContent = styled.div`
-    flex: 1 1;
+    flex: 0 1 auto;
     @media (min-width: 767px) {
         margin-right: 2em;
     }
@@ -74,7 +78,9 @@ const HuContent = styled.div`
 
 const HuImageWrapper = css`
     @media (min-width: 767px) {
-       width: 40%;
+       width: 100%;
+       max-width: 40%;
+       flex: 1 0 auto;
     }
 `
 
@@ -87,7 +93,7 @@ const Text = ({ children }) => <p>{children}</p>
 
 const options = {
   renderMark: {
-    [MARKS.BOLD]: text => <Bold>{text}</Bold>,
+    [MARKS.BOLD]: (text) => <Bold>{text}</Bold>,
   },
   renderNode: {
     [BLOCKS.PARAGRAPH]: (node, children) => <Text>{children}</Text>,
@@ -100,7 +106,7 @@ const Header = (props) => (
       <Wrapper>
         <h2>{props.title}</h2>
         <div>
-            {documentToReactComponents(props.description, options)}  
+        {renderRichText(props.description, options)} 
         </div>
       </Wrapper>
     </Section>
@@ -113,7 +119,7 @@ const AboutRay = (props) => (
         <Break />
         <Grid>
             <ImageWrapper>
-                <Image fluid={props.image} />
+                <GatsbyImage image={props.image.gatsbyImageData} alt={props.image.alt} />
                 <Socials>
                     {props.socials.map( social => (
                         <li><a href={social.node.url}>{social.node.name}</a></li>
@@ -121,7 +127,8 @@ const AboutRay = (props) => (
                 </Socials>
             </ImageWrapper>
             <RayContent>
-                {documentToReactComponents(props.body, options)}  
+                {renderRichText(props.body, options)}
+                
             </RayContent>
         </Grid>
     </Section>
@@ -133,10 +140,10 @@ const AboutHU = (props) => (
         <Break />
         <Grid>
             <HuContent>
-             {documentToReactComponents(props.body, options)}  
+                {renderRichText(props.body, options)}
             </HuContent>
             <ImageWrapper css={HuImageWrapper}>
-                <Image fluid={props.image} />
+                <GatsbyImage image={props.image.gatsbyImageData} alt={props.image.alt} />
             </ImageWrapper>
         </Grid>
     </Section>
@@ -150,18 +157,18 @@ const About = ({data}) => {
             <SEO title="About" />
             <Header 
                 title={about.headerTitle}
-                description={about.headerDescription.json}
+                description={about.headerDescription}
             />
             <AboutRay 
                 title={about.aboutRayTitle}
-                body={about.aboutRayContent.json}
-                image={about.aboutRayImage.fluid}
+                body={about.aboutRayContent}
+                image={about.aboutRayImage}
                 socials={data.allContentfulSocialMediaLinks.edges}
             />
             <AboutHU
                 title={about.aboutHuTitle}
-                body={about.aboutHuContent.json}
-                image={about.aboutHuImage.fluid}
+                body={about.aboutHuContent}
+                image={about.aboutHuImage}
             />
             <Newsletter />
         </Layout>
@@ -175,29 +182,29 @@ export const query = graphql`
         contentfulAboutPage {
             headerTitle
             aboutRayContent {
-                json
+                raw
             }
             aboutRayImage {
-                fluid {
-                    sizes
-                    src
-                    srcSet
-                  }
+                gatsbyImageData(
+                    placeholder: BLURRED
+                    formats: [AUTO, WEBP, AVIF]
+                )
+                title
             }
             aboutRayTitle
             aboutHuTitle
             aboutHuImage {
-                fluid {
-                    sizes
-                    src
-                    srcSet
-                  }
+                gatsbyImageData(
+                    placeholder: BLURRED
+                    formats: [AUTO, WEBP, AVIF]
+                )
+                title
             }
             aboutHuContent {
-                json
+                raw
             }
             headerDescription {
-                json
+                raw
             }
         }
         allContentfulSocialMediaLinks {
