@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import styled from "@emotion/styled"
 import { css } from "@emotion/react"
 import { GatsbyImage } from "gatsby-plugin-image"
@@ -103,6 +103,13 @@ const Footer = () => {
         }
       }
   `)
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.document) {
+      return
+    }
+  }, [])
+  
     return (
     <footer css={footer}>
         <Section>
@@ -159,13 +166,16 @@ const Footer = () => {
                 </GridItem>
             </Grid>
         </Section>
-        <PopupWidget
-          url="https://calendly.com/healthunchained?hide_gdpr_banner=1"
-          text="Schedule a Meeting"
-          textColor="#ffffff"
-          color="#0069ff"
-          rootElement={document.getElementById("___gatsby")}
-          />
+
+        {typeof window!=='undefined' &&
+          <PopupWidget
+            url="https://calendly.com/healthunchained?hide_gdpr_banner=1"
+            text="Schedule a Meeting"
+            textColor="#ffffff"
+            color="#0069ff"
+            rootElement={document.getElementById("___gatsby")}
+            />
+          }
     </footer>
 )}
   
