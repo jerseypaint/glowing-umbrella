@@ -164,6 +164,7 @@ const Footer = () => {
           text="Schedule a Meeting"
           textColor="#ffffff"
           color="#0069ff"
+          rootElement={document.getElementById("___gatsby")}
           />
     </footer>
 )}
