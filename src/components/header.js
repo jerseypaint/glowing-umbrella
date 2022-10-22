@@ -61,7 +61,7 @@ const MenuButton = styled.button`
   border: none;
   cursor: pointer;
   margin-left: auto;
-  z-index: 90;
+  z-index: 199;
   span {
     display: block;
     height: 2px;
@@ -76,6 +76,7 @@ const MenuButton = styled.button`
     .drawerOpen & {
       background-color: #fff;
       margin: 0;
+
       &:nth-of-type(1) {
         transform: rotate(45deg) translate(0px,1px);
         -moz-transform: rotate(45deg) translate(0px,1px);  
@@ -93,13 +94,19 @@ const MenuButton = styled.button`
     }
   }
 
+  .drawerOpen & {
+    position: fixed;
+    top: 0;
+    right: 0;
+  }
+
   @media (min-width: 769px) {
     display: none;
   }
 `
 
 const NavDrawer = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: -100%;
   height: 100%;
@@ -120,7 +127,7 @@ const NavDrawer = styled.div`
   }
 
   ul {
-    margin: 90px 0 0;
+    margin: 60px 0 0;
 
     li {
       list-style: none;
