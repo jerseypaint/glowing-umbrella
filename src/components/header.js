@@ -104,7 +104,7 @@ const NavDrawer = styled.div`
   left: -100%;
   height: 100%;
   width: 100%;
-  z-index: 10;
+  z-index: 99;
   text-align: center;
   background-color: #000;
   opacity: 0;
