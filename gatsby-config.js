@@ -35,8 +35,8 @@ module.exports = {
         link:'/about'
       },
       {
-        name:'support',
-        link:'/support'
+        name:'premium',
+        link:'/premium'
       },
       {
         name:'contact',
