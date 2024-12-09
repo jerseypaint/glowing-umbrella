@@ -18,6 +18,7 @@ import ListenLinks from "../components/listen-links"
 import Newsletter from "../components/newsletter"
 import { Component } from "react"
 import {Linkify} from "../utils/linkify"
+import { Search } from "../components/Search"
 
 const Grid = styled.div`
   text-align: center;
@@ -202,33 +203,44 @@ const Header = (props) => (
   <Section>
     <Wrapper>
       <h2>{props.title}</h2>
-      <div>
-        {renderRichText(props.body, options)} 
-      </div>
+      <div>{renderRichText(props.body, options)}</div>
     </Wrapper>
     <ListenWrapper>
-      <p>Other ways to listen:</p><ListenLinks />
+      <p>Other ways to listen:</p>
+      <ListenLinks />
     </ListenWrapper>
+    <Wrapper>
+        <div style={{ paddingTop: "1rem"}}>
+          <Search />
+        </div>
+
+    </Wrapper>
   </Section>
 )
 
 const NewEpisode = (props) => {
-  
   function truncate(str) {
-    return str.length > 200 ? str.substring(0, 200) + "..." : str;
+    return str.length > 200 ? str.substring(0, 200) + "..." : str
   }
 
   return (
     <Section>
       <BreakTop />
-        <Grid css={NewEpisodeGrid}>
-            <TrackImage src={props.image} />
-            <NewEpisodeContent>
-              <span></span>
-              <h3><Link to={`/${props.link}`}>{props.title}</Link></h3>
-              <p> {truncate(props.description)} ... <Link to={`/${props.link}`}>Listen Now</Link></p>
-            </NewEpisodeContent>
-        </Grid>
+      <h2 style={{ textAlign: "center"}}>Latest Episode</h2>
+      <Grid css={NewEpisodeGrid}>
+        <TrackImage src={props.image} />
+        <NewEpisodeContent>
+          <span></span>
+          <h3>
+            <Link to={`/${props.link}`}>{props.title}</Link>
+          </h3>
+          <p>
+            {" "}
+            {truncate(props.description)} ...{" "}
+            <Link to={`/${props.link}`}>Listen Now</Link>
+          </p>
+        </NewEpisodeContent>
+      </Grid>
       <BreakBottom />
     </Section>
   )
@@ -319,12 +331,7 @@ class AllEpisodes extends Component {
     <Section>
         <AllEpisodesHeader>
           <h2>{this.props.title}</h2>
-          <FormWrapper>
-            <SearchForm>
-              <input />
-              <SearchButton type={`submit`}><FontAwesomeIcon icon={faSearch} color={`black`} /></SearchButton>
-            </SearchForm>
-          </FormWrapper>
+         
         </AllEpisodesHeader>
         <AllEpisodesList>
 
@@ -339,27 +346,25 @@ class AllEpisodes extends Component {
     </Section>
 )}}
 
-const EpisodesPage = ({data}) => {
+const EpisodesPage = ({ data }) => {
   return (
     <Layout>
-    <SEO title="Episodes" />
-    <Header 
-      title={data.contentfulEpisodesPage.headerTitle}
-      body={data.contentfulEpisodesPage.headerBody}
-    />
-    <NewEpisode
-      image={data.episode.images[0].url}
-      title={data.episode.name}
-      description={data.episode.description}
-      link={Linkify(data.episode.name)}
+      <SEO title="Episodes" />
+      <Header
+        title={data.contentfulEpisodesPage.headerTitle}
+        body={data.contentfulEpisodesPage.headerBody}
       />
-    <AllEpisodes 
-      title={`More Episodes`}
-      tracks={data.allEpisode.edges}
-    />
-    <Newsletter />
-  </Layout>
-)}
+      <NewEpisode
+        image={data.episode.images[0].url}
+        title={data.episode.name}
+        description={data.episode.description}
+        link={Linkify(data.episode.name)}
+      />
+      <AllEpisodes title={`More Episodes`} tracks={data.allEpisode.edges} />
+      <Newsletter />
+    </Layout>
+  )
+}
 
 export default EpisodesPage
 

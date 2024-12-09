@@ -1,20 +1,4 @@
-require('dotenv').config({
-  path: `.env.${process.env.NODE_ENV}`
-})
-
-const contentfulConfig = {
-  spaceId: process.env.CONTENTFUL_SPACE_ID,
-  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
-  host: process.env.CONTENTFUL_HOST
-}
-
-const { spaceId, accessToken } = contentfulConfig
-
-if (!spaceId || !accessToken) {
-  throw new Error(
-    'Contentful spaceId and the access token need to be provided.'
-  )
-}
+require('dotenv').config()
 
 module.exports = {
   siteMetadata: {
@@ -72,7 +56,11 @@ module.exports = {
     `gatsby-plugin-emotion`,
     {
       resolve: `gatsby-source-contentful`,
-      options: contentfulConfig,
+      options: {
+        spaceId: process.env.CONTENTFUL_SPACE_ID,
+        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+        host: process.env.CONTENTFUL_HOST
+      }
     },
     `gatsby-plugin-lodash`,
     {
@@ -97,6 +85,14 @@ module.exports = {
             file: `https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;700&display=swap`,
           },
         ],
+      },
+    },
+    {
+      resolve: `gatsby-plugin-algolia`,
+      options: {
+        appId: process.env.GATSBY_ALGOLIA_APP_ID,
+        apiKey: process.env.ALGOLIA_ADMIN_KEY,
+        queries: require("./src/utils/algolia-queries")
       },
     },
     `gatsby-plugin-image`,

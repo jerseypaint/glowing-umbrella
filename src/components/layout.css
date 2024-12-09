@@ -551,3 +551,68 @@ h2 {
   font-size: 2.1375rem;
   line-height: 1.1;
 }
+
+/* Autocomplete */
+
+.aa-Panel {
+  position: fixed;
+}
+
+/* InstantSearch */
+
+.ais-Hits-list {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.ais-Hits-item {
+  padding: 1rem !important;
+}
+
+.hit {
+  align-items: center;
+  display: grid;
+  gap: 1rem;
+}
+
+.hit h1 {
+  font-size: 1rem;
+}
+
+.hit p {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.hit-image {
+  align-items: center;
+  display: flex;
+  height: 100px;
+  justify-content: center;
+}
+
+.hit-image img {
+  max-height: 100%;
+}
+
+.ais-HierarchicalMenu-item--selected.ais-HierarchicalMenu-item--parent
+> div:first-of-type
+.ais-HierarchicalMenu-label {
+  font-weight: bold;
+}
+
+.ais-HierarchicalMenu-item--selected:not(.ais-HierarchicalMenu-item--parent)
+.ais-HierarchicalMenu-label {
+  font-weight: bold;
+}
+
+.ais-Pagination {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.aa-List > *:last-of-type > div {
+  border-bottom: none;
+}
