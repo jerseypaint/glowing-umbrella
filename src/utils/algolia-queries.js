@@ -30,7 +30,7 @@ const queries = [
     query: episodeQuery,
     transformer: ({ data }) => data.allEpisode.edges.map(episodeToAlgoliaRecord),
     indexName,
-    settings: { attributesToSnippet: [`excerpt:20`] },
+    settings: { attributesToSnippet: [`description:20`] },
   },
 ]
 
