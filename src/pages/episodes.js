@@ -377,12 +377,13 @@ export const query = graphql`
       }
     }
     episode {
-      name
-      description
-      images {
-        url
-      }
-      id
+        name
+        description
+        html_description
+        images {
+          url
+        }
+        id
     }
     allEpisode(skip: 1) {
       edges {
@@ -390,11 +391,12 @@ export const query = graphql`
           images {
             url
           }
-          description
-          release_date
-          duration_ms
-          name
-          id
+            description
+            html_description
+            release_date
+            duration_ms
+            name
+            id
         }
       }
     }

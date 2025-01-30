@@ -76,9 +76,7 @@ const Article = (props) => {
   return (
     <Section>
         <Wrapper>
-            <article>
-              {addLineBreaks(props.body)}  
-            </article>
+            <article dangerouslySetInnerHTML={{ __html: props.body }} />
         </Wrapper>
         <PageNav>
           {props.prev !== `/false` && <Link to={props.prev} css={[PageNavLink, prev]}><FontAwesomeIcon icon={faAngleDoubleLeft} color={`black`} />Prev</Link>}
@@ -98,7 +96,7 @@ const EpisodesPage = ({data, pageContext}) => {
       src={data.episode.uri}
     />
     <Article 
-      body={data.episode.description}
+      body={data.episode.html_description}
       prev={`/${prev}`}
       next={`/${next}`}
     />
@@ -112,6 +110,7 @@ export const query = graphql`
   query($id: String!) {
     episode(id: { eq: $id }) {
       description
+        html_description
       name
       id
       uri
