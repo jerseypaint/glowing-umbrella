@@ -8,6 +8,9 @@ const episodeQuery = `{
         uri
         description
         name
+        internal {
+          contentDigest
+        }
       }
     }
   }
@@ -16,12 +19,13 @@ const episodeQuery = `{
 function episodeToAlgoliaRecord({ node: { id,
   uri,
   description,
-  name } }) {
+  name, internal: { contentDigest } } }) {
   return {
     objectID: id,
     uri,
     description,
-    name
+    name,
+    internal: { contentDigest }
   }
 }
 
